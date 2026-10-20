@@ -1,0 +1,21 @@
+package com.example.aplicacionagua.viewmodels
+
+import androidx.compose.runtime.mutableStateListOf
+import androidx.lifecycle.ViewModel
+import com.example.aplicacionagua.modelos.Registro
+
+class AguaViewModel : ViewModel() {
+    private val _registros = mutableStateListOf<Registro>()
+    val registros: List<Registro> = _registros
+    private var siguienteId = 1
+    fun agregarRegistro() {
+        _registros.add(0, Registro(id = siguienteId))
+        siguienteId++
+    }
+    fun responder(id: Int, tomoAgua: Boolean) {
+        val i = _registros.indexOfFirst { it.id == id }
+        if (i != -1) {
+            _registros[i] = _registros[i].copy(tomoAgua = tomoAgua)
+        }
+    }
+}
